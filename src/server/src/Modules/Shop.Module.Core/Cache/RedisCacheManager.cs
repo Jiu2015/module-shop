@@ -3,9 +3,6 @@ using Newtonsoft.Json;
 using Shop.Infrastructure;
 using Shop.Module.Core.Data;
 using StackExchange.Redis;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Shop.Module.Core.Cache
 {
@@ -210,18 +207,6 @@ namespace Shop.Module.Core.Cache
         /// <returns>The cached value associated with the specified key</returns>
         public async Task<T> GetAsync<T>(string key, Func<Task<T>> acquire, int? cacheTime = null)
         {
-            //item already is in cache, so return it
-            if (await IsSetAsync(key))
-                return await GetAsync<T>(key);
-
-            //or create it using passed function
-            var result = await acquire();
-
-            //and set in cache (if cache time is defined)
-            if ((cacheTime ?? _config.CacheTimeInMinutes) > 0)
-                await SetAsync(key, result, cacheTime ?? _config.CacheTimeInMinutes);
-
-            return result;
         }
 
         /// <summary>

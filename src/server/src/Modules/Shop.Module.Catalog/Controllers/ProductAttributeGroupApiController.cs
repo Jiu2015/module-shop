@@ -103,19 +103,6 @@ namespace Shop.Module.Catalog.Controllers
         [HttpDelete("{id:int:min(1)}")]
         public async Task<Result> Delete(int id)
         {
-            var group = await _productAttrGroupRepository.FirstOrDefaultAsync(id);
-            if (group == null)
-                return Result.Fail("单据不存在");
-
-            // 验证组是否被属性使用
-            var any = await _productAttrRepository.Query().AnyAsync(c => c.GroupId == group.Id);
-            if (any)
-                return Result.Fail("Please make sure this group not used");
-
-            group.IsDeleted = true;
-            group.UpdatedOn = DateTime.Now;
-            await _productAttrGroupRepository.SaveChangesAsync();
-            return Result.Ok();
         }
     }
 }

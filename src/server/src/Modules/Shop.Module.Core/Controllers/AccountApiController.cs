@@ -76,26 +76,6 @@ namespace Shop.Module.Core.Controllers
         [HttpGet()]
         public async Task<Result> CurrentUser()
         {
-            var user = await _workContext.GetCurrentUserAsync();
-            if (user == null)
-                return Result.Fail("Error");
-            var result = new AccountResult()
-            {
-                UserId = user.Id,
-                UserName = user.UserName,
-                Culture = user.Culture,
-                Email = StringHelper.EmailEncryption(user.Email),
-                EmailConfirmed = user.EmailConfirmed,
-                FullName = user.FullName,
-                LastActivityOn = user.LastActivityOn,
-                LastIpAddress = user.LastIpAddress,
-                LastLoginOn = user.LastLoginOn,
-                PhoneNumber = StringHelper.PhoneEncryption(user.PhoneNumber),
-                PhoneNumberConfirmed = user.PhoneNumberConfirmed,
-                Avatar = user.AvatarUrl,
-                NotifyCount = 20
-            };
-            return Result.Ok(result);
         }
 
         /// <summary>

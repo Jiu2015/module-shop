@@ -132,14 +132,6 @@ namespace Shop.Module.Catalog.Controllers
         [HttpPost]
         public async Task<Result> Post([FromBody] ProductAttributeParam model)
         {
-            var productAttribute = new ProductAttribute
-            {
-                Name = model.Name,
-                GroupId = model.GroupId
-            };
-            _productAttrRepository.Add(productAttribute);
-            await _productAttrRepository.SaveChangesAsync();
-            return Result.Ok();
         }
 
         /// <summary>

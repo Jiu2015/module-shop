@@ -57,20 +57,6 @@ namespace Shop.Module.Catalog.Controllers
         [HttpGet("{id:int:min(1)}")]
         public async Task<Result> Get(int id)
         {
-            var brand = await _brandRepository.FirstOrDefaultAsync(id);
-            if (brand == null)
-            {
-                return Result.Fail("单据不存在");
-            }
-            var model = new BrandParam
-            {
-                Id = brand.Id,
-                Name = brand.Name,
-                Slug = brand.Slug,
-                Description = brand.Description,
-                IsPublished = brand.IsPublished
-            };
-            return Result.Ok(model);
         }
 
         /// <summary>

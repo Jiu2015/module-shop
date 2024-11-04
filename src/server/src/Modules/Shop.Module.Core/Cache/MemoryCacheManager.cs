@@ -1,13 +1,8 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
 using Shop.Infrastructure;
-using System;
 using System.Collections.Concurrent;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Shop.Module.Core.Cache
 {
@@ -58,16 +53,6 @@ namespace Shop.Module.Core.Cache
         /// <param name="cacheTime">Cache time</param>
         protected MemoryCacheEntryOptions GetMemoryCacheEntryOptions(TimeSpan cacheTime)
         {
-            var options = new MemoryCacheEntryOptions()
-                // add cancellation token for clear cache
-                .AddExpirationToken(new CancellationChangeToken(_cancellationTokenSource.Token))
-                //add post eviction callback
-                .RegisterPostEvictionCallback(PostEviction);
-
-            //set cache time
-            options.AbsoluteExpirationRelativeToNow = cacheTime;
-
-            return options;
         }
 
         /// <summary>

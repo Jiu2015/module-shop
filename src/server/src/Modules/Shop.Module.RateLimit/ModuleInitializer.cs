@@ -23,19 +23,7 @@ namespace Shop.Module.RateLimit
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            var conf = app.ApplicationServices.GetRequiredService<IConfiguration>();
-            var ipRate = conf.GetSection(IpRateLimitingKey).Get<bool>();
-            var clientRate = conf.GetSection(ClientRateLimitingKey).Get<bool>();
 
-            if (ipRate)
-            {
-                app.UseIpRateLimit();
-            }
-
-            if (clientRate)
-            {
-                app.UseClientRateLimit();
-            }
         }
     }
 }

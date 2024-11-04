@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace Shop.Module.BasicAuth
@@ -43,22 +41,6 @@ namespace Shop.Module.BasicAuth
         /// <returns></returns>
         public bool Validate(string login, string password, bool loginCaseSensitive)
         {
-            if (string.IsNullOrWhiteSpace(login) == true)
-                throw new ArgumentNullException("login");
-
-            if (string.IsNullOrWhiteSpace(password) == true)
-                throw new ArgumentNullException("password");
-
-            if (login.Equals(Login, loginCaseSensitive ? StringComparison.CurrentCulture : StringComparison.OrdinalIgnoreCase) == true)
-            {
-                using (var cryptoProvider = SHA1.Create())
-                {
-                    byte[] passwordHash = cryptoProvider.ComputeHash(Encoding.UTF8.GetBytes(password));
-                    return StructuralComparisons.StructuralEqualityComparer.Equals(passwordHash, Password);
-                }
-            }
-            else
-                return false;
         }
     }
 }

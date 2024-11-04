@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Shop.Module.Core.Data;
-using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace Shop.Module.SampleData.Data
@@ -76,19 +74,6 @@ namespace Shop.Module.SampleData.Data
 
         public IEnumerable<string> MySqlCommand(IEnumerable<string> lines)
         {
-            var commands = new List<string>();
-            var sb = new StringBuilder();
-            foreach (var line in lines)
-            {
-                if (!string.IsNullOrWhiteSpace(line))
-                {
-                    sb.AppendLine(line.Replace("{", "{{").Replace("}", "}}"));
-                }
-            }
-
-            commands.Add(sb.ToString());
-
-            return commands;
         }
 
         public IEnumerable<string> PostgresCommands(IEnumerable<string> lines)

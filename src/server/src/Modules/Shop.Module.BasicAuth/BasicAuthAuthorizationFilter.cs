@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Shop.Module.BasicAuth.Dashboard;
 using System;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
-using Shop.Module.BasicAuth.Dashboard;
 
 namespace Shop.Module.BasicAuth
 {
@@ -23,9 +23,6 @@ namespace Shop.Module.BasicAuth
 
         private bool Challenge(HttpContext context)
         {
-            context.Response.StatusCode = 401;
-            context.Response.Headers.Append("WWW-Authenticate", "Basic realm=\"BaseAuth Dashboard\"");
-            return false;
         }
 
         public bool Authorize(DashboardContext _context)

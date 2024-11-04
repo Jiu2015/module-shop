@@ -53,24 +53,6 @@ namespace Shop.Module.Catalog.Controllers
         [HttpPost("grid")]
         public async Task<Result<StandardTableResult<ProductAttributeTemplateResult>>> DataList([FromBody] StandardTableParam param)
         {
-            var query = _productAttrTempRepo.Query()
-                .Include(c => c.ProductAttributes)
-                .ThenInclude(c => c.Attribute)
-                .ThenInclude(c => c.Group);
-            var result = await query
-                .ToStandardTableResult(param, x => new ProductAttributeTemplateResult
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Attributes = x.ProductAttributes.Select(c => new ProductAttributeResult
-                    {
-                        Id = c.AttributeId,
-                        Name = c.Attribute.Name,
-                        GroupId = c.Attribute.GroupId,
-                        GroupName = c.Attribute.Group.Name,
-                    }).ToList()
-                });
-            return Result.Ok(result);
         }
 
         /// <summary>

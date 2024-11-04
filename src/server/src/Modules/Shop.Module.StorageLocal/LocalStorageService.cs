@@ -3,7 +3,6 @@ using Microsoft.Extensions.Options;
 using Shop.Infrastructure;
 using Shop.Infrastructure.Data;
 using Shop.Infrastructure.Helpers;
-using Shop.Module.Core.Data;
 using Shop.Module.Core.Entities;
 using Shop.Module.Core.Models;
 using Shop.Module.Core.Services;
@@ -29,11 +28,6 @@ namespace Shop.Module.StorageLocal
 
         public async Task DeleteMediaAsync(string fileName)
         {
-            var filePath = Path.Combine(GlobalConfiguration.WebRootPath, MediaRootFoler, fileName);
-            if (File.Exists(filePath))
-            {
-                await Task.Run(() => File.Delete(filePath));
-            }
         }
 
         public async Task<string> GetMediaUrl(string fileName)

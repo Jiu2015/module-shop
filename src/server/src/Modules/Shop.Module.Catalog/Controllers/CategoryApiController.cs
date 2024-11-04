@@ -122,17 +122,6 @@ namespace Shop.Module.Catalog.Controllers
         [HttpDelete("{id:int:min(1)}")]
         public async Task<Result> Delete(int id)
         {
-            var category = await _categoryRepository.Query().Include(x => x.Children).FirstOrDefaultAsync(c => c.Id == id && !c.IsDeleted);
-            if (category == null)
-                return Result.Fail("单据不存在");
-
-            if (category.Children.Count > 0)
-            {
-                return Result.Fail("请确保此类别不包含子类别");
-            }
-
-            await _categoryService.Delete(category);
-            return Result.Ok();
         }
 
         /// <summary>

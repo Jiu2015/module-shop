@@ -8,15 +8,9 @@ using Shop.Module.Core.Entities;
 using Shop.Module.Core.Models;
 using Shop.Module.Core.Services;
 using Shop.Module.SmsSenderAliyun.Models;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Net;
-using System.Net.Http;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Shop.Module.SmsSenderAliyun.Services
@@ -167,10 +161,6 @@ namespace Shop.Module.SmsSenderAliyun.Services
 
         private static string SignString(string source, string accessSecret)
         {
-            using (var algorithm = new HMACSHA1(Encoding.UTF8.GetBytes(accessSecret.ToCharArray())))
-            {
-                return Convert.ToBase64String(algorithm.ComputeHash(Encoding.UTF8.GetBytes(source.ToCharArray())));
-            }
         }
 
         private string GetSignUrl(Dictionary<string, string> parameters, string accessSecret)
@@ -272,15 +262,6 @@ namespace Shop.Module.SmsSenderAliyun.Services
 
         private async Task<(int StatusCode, string Response)> HttpGetAsync(string url)
         {
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.Proxy = null;
-            handler.AutomaticDecompression = DecompressionMethods.GZip;
-            using (var http = new HttpClient(handler))
-            {
-                http.Timeout = new TimeSpan(TimeSpan.TicksPerMillisecond * timeoutInMilliSeconds);
-                HttpResponseMessage response = await http.GetAsync(url);
-                return ((int)response.StatusCode, await response.Content.ReadAsStringAsync());
-            }
         }
     }
 }

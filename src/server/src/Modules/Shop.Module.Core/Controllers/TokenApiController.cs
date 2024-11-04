@@ -36,21 +36,6 @@ namespace Shop.Module.Core.Controllers
         [HttpPost("refresh")]
         public async Task<Result> RefeshToken(RefreshTokenParam model)
         {
-            var principal = _tokenService.GetPrincipalFromExpiredToken(model.Token);
-            if (principal == null)
-            {
-                return Result.Fail("Invalid token");
-            }
-
-            var user = await _userManager.GetUserAsync(principal);
-            var verifyRefreshTokenResult = _userManager.PasswordHasher.VerifyHashedPassword(user, user.RefreshTokenHash, model.RefreshToken);
-            if (verifyRefreshTokenResult == PasswordVerificationResult.Success)
-            {
-                var token = await _tokenService.GenerateAccessToken(user);
-                return Result.Ok(new { token });
-            }
-
-            return Result.Fail("Indicates password verification failed.");
         }
     }
 }

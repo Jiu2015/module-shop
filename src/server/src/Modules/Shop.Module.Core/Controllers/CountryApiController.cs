@@ -44,27 +44,6 @@ namespace Shop.Module.Core.Controllers
         [HttpPost("grid")]
         public async Task<Result<StandardTableResult<CountryResult>>> List([FromBody] StandardTableParam param)
         {
-            var query = _countryRepository.Query();
-            var result = await query.Include(x => x.StatesOrProvinces)
-                  .ToStandardTableResult(param, c => new CountryResult
-                  {
-                      Id = c.Id,
-                      CreatedOn = c.CreatedOn,
-                      IsCityEnabled = c.IsCityEnabled,
-                      DisplayOrder = c.DisplayOrder,
-                      IsBillingEnabled = c.IsBillingEnabled,
-                      IsDeleted = c.IsDeleted,
-                      IsDistrictEnabled = c.IsDistrictEnabled,
-                      IsPublished = c.IsPublished,
-                      IsShippingEnabled = c.IsShippingEnabled,
-                      Name = c.Name,
-                      NumericIsoCode = c.NumericIsoCode,
-                      ThreeLetterIsoCode = c.ThreeLetterIsoCode,
-                      TwoLetterIsoCode = c.TwoLetterIsoCode,
-                      UpdatedOn = c.UpdatedOn,
-                      StateOrProvinceCount = c.StatesOrProvinces.Count
-                  });
-            return Result.Ok(result);
         }
 
         /// <summary>

@@ -5,10 +5,6 @@ using Shop.Module.Core.Cache;
 using Shop.Module.Core.Services;
 using Shop.Module.SampleData.Data;
 using Shop.Module.SampleData.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace Shop.Module.SampleData.Services
 {
@@ -61,15 +57,6 @@ namespace Shop.Module.SampleData.Services
 
         private async Task CopyImages(string sampleContentFolder)
         {
-            var imageFolder = Path.Combine(sampleContentFolder, "Images");
-            IEnumerable<string> files = Directory.GetFiles(imageFolder);
-            foreach (var file in files)
-            {
-                using (var stream = File.OpenRead(file))// File.Open(file, FileMode.Open, FileAccess.Read)
-                {
-                    await _mediaService.SaveMediaAsync(stream, Path.GetFileName(file));
-                }
-            }
         }
     }
 }

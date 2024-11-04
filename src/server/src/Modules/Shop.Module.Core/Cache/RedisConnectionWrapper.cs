@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using RedLockNet.SERedis;
-using RedLockNet.SERedis.Configuration;
 using Shop.Infrastructure;
 using StackExchange.Redis;
-using System;
-using System.Linq;
 using System.Net;
 
 namespace Shop.Module.Core.Cache
@@ -74,21 +71,6 @@ namespace Shop.Module.Core.Cache
         /// <returns>RedLock factory</returns>
         protected RedLockFactory CreateRedisLockFactory()
         {
-            //get RedLock endpoints
-            var configurationOptions = ConfigurationOptions.Parse(_connectionString.Value);
-            var redLockEndPoints = GetEndPoints().Select(endPoint => new RedLockEndPoint
-            {
-                EndPoint = endPoint,
-                Password = configurationOptions.Password,
-                Ssl = configurationOptions.Ssl,
-                RedisDatabase = configurationOptions.DefaultDatabase,
-                ConfigCheckSeconds = configurationOptions.ConfigCheckSeconds,
-                ConnectionTimeout = configurationOptions.ConnectTimeout,
-                SyncTimeout = configurationOptions.SyncTimeout
-            }).ToList();
-
-            //create RedLock factory to use RedLock distributed lock algorithm
-            return RedLockFactory.Create(redLockEndPoints);
         }
 
         #endregion
